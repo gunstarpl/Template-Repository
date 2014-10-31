@@ -32,6 +32,8 @@ Set(SourceFiles
     "${PrecompiledSource}"
 
     "Main.cpp"
+
+    "Common/Debug.hpp"
 )
 
 #
