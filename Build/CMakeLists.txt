@@ -13,7 +13,7 @@ CMake_Minimum_Required(VERSION 3.1.0)
 Set(ProjectName "Project")
 
 # Target name.
-Set(TargetName "Target")
+Set(TargetName "Application")
 
 # Show console.
 Set(ShowConsole "Yes")
