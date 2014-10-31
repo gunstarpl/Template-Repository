@@ -46,6 +46,12 @@ Project(${ProjectName})
 # Add the source directory as an include directory.
 Include_Directories(${SourceDir})
 
+# Enable target folders.
+Set_Property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Move CMake predefined targets to a separate folder.
+Set_Property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
+
 # Append source directory path to each file.
 Set(SourceFilesTemp)
 
@@ -56,8 +62,6 @@ EndForEach()
 Set(SourceFiles ${SourceFilesTemp})
 
 # Organize source files in folders based on file paths.
-Set_Property(GLOBAL PROPERTY USE_FOLDERS ON)
-
 ForEach(SourceFile ${SourceFiles})
     # Get the source file path without file name and extension.
     Get_Filename_Component(SourceFilePath ${SourceFile} PATH)
