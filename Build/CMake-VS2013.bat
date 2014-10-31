@@ -3,9 +3,9 @@
 rem Cleanup first.
 call CMake-Cleanup.bat
 
-rem Create an empty output directory.
-mkdir Output
-cd Output
+rem Create an empty directory.
+mkdir "CMake-VS2013"
+cd "CMake-VS2013"
 
 rem Generate solution files.
 cmake -g "Visual Studio 12" ./..

@@ -1,4 +1,4 @@
 @echo off
 
-rem Remove output directory.
-rd /s /q Output > NUL 2>&1
+rem Remove all CMake directories.
+for /d %%x in ("CMake-*") do rd /s /q "%%x"
