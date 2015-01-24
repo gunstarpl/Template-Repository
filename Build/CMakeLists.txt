@@ -3,7 +3,7 @@
 #
 
 # Minimun version required.
-CMake_Minimum_Required(VERSION 3.1.0)
+CMake_Minimum_Required(VERSION 2.8.8)
 
 #
 # Config
