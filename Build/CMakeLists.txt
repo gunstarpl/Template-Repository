@@ -108,7 +108,7 @@ Add_Definitions(-DUNICODE -D_UNICODE)
 #
 
 # Visual C++ specific.
-If(MSVC)
+If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     # Show or hide the console window.
     If(ShowConsole)
         Set_Property(TARGET ${TargetName} APPEND_STRING PROPERTY LINK_FLAGS "/SUBSYSTEM:Console ")
