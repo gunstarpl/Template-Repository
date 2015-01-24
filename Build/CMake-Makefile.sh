@@ -6,4 +6,4 @@ mkdir "CMake-Makefile"
 cd "CMake-Makefile"
 
 # Generate makefiles.
-cmake -g "Unix Makefiles" ./..
+cmake -G "Unix Makefiles" ./..
