@@ -34,10 +34,11 @@ Set(SourceFiles
     "Main.cpp"
 
     "Common/Debug.hpp"
-    "Common/NonCopyable.hpp"
-    "Common/ScopeGuard.hpp"
     "Common/Utility.hpp"
     "Common/Utility.cpp"
+    "Common/NonCopyable.hpp"
+    "Common/ScopeGuard.hpp"
+    "Common/Delegate.hpp"
 )
 
 #
