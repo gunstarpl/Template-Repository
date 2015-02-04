@@ -6,7 +6,8 @@ int main(int argc, char* argv[])
     Debug::Initialize();
     
     // Output some text.
-    printf("Hello world!\n");
+    std::cout << "Hello world!" << std::endl;
+    std::cin.get();
 
     return 0;
 }
