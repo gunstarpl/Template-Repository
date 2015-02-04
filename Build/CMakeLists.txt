@@ -34,6 +34,8 @@ Set(SourceFiles
     "Main.cpp"
 
     "Common/Debug.hpp"
+    "Common/Build.hpp"
+    "Common/Build.cpp"
     "Common/Utility.hpp"
     "Common/Utility.cpp"
     "Common/NonCopyable.hpp"
@@ -117,6 +119,18 @@ Add_Executable(${TargetName} ${SourceFiles})
 
 # Enable unicode support.
 Add_Definitions(-DUNICODE -D_UNICODE)
+
+#
+# Build
+#
+
+# Write a file in the build directory that will point the executable to it's working directory.
+Get_Filename_Component(WorkingDir "${CMAKE_CURRENT_LIST_DIR}/../Deploy" ABSOLUTE)
+File(WRITE "${CMAKE_BINARY_DIR}/WorkingDir.txt" "${WorkingDir}/")
+
+# Write a file in the build directory that will point to source directory.
+Get_Filename_Component(SourceDir "${CMAKE_CURRENT_LIST_DIR}/../Source" ABSOLUTE)
+File(WRITE "${CMAKE_BINARY_DIR}/SourceDir.txt" "${SourceDir}/")
 
 #
 # Windows
