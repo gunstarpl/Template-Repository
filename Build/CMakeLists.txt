@@ -39,6 +39,18 @@ Set(SourceFiles
     "Common/NonCopyable.hpp"
     "Common/ScopeGuard.hpp"
     "Common/Delegate.hpp"
+
+    "Logger/Logger.hpp"
+    "Logger/Logger.cpp"
+    "Logger/Message.hpp"
+    "Logger/Message.cpp"
+    "Logger/ScopedMessage.hpp"
+    "Logger/ScopedMessage.cpp"
+    "Logger/Sink.hpp"
+    "Logger/Sink.cpp"
+    "Logger/Output.hpp"
+    "Logger/FileOutput.hpp"
+    "Logger/FileOutput.cpp"
 )
 
 #
