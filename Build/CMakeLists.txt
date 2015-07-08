@@ -9,13 +9,11 @@ CMake_Minimum_Required(VERSION 3.1.1)
 # Config
 #
 
-# Project name.
+# Build settings.
 Set(ProjectName "Project")
-
-# Target name.
 Set(TargetName "Application")
 
-# Show console.
+# Application settings.
 Set(ShowConsole "Yes")
 
 #
@@ -59,7 +57,7 @@ Set(SourceFiles
 # Project
 #
 
-# Create the project.
+# Create a build project.
 Project(${ProjectName})
 
 # Add the source directory as an include directory.
@@ -71,7 +69,7 @@ Set_Property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Move CMake predefined targets to a separate folder.
 Set_Property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
-# Append source directory path to each file.
+# Append source directory path to each source file.
 Set(SourceFilesTemp)
 
 ForEach(SourceFile ${SourceFiles})
@@ -80,9 +78,9 @@ EndForEach()
 
 Set(SourceFiles ${SourceFilesTemp})
 
-# Organize source files in folders based on file paths.
+# Organize source files based on their file paths.
 ForEach(SourceFile ${SourceFiles})
-    # Get the source file path without file name and extension.
+    # Get the source file directory path.
     Get_Filename_Component(SourceFilePath ${SourceFile} PATH)
     
     # Remove the source directory path.
@@ -102,7 +100,7 @@ ForEach(SourceFile ${SourceFiles})
             String(SUBSTRING ${SourceFilePath} 1 ${SourceFilePathLength} SourceFilePath)
         EndIf()
     
-        # Add a source file to an appopriate group.
+        # Add a source file to a corresponding group.
         Source_Group("Source\\${SourceFilePath}" FILES ${SourceFile})
     Else()
         # Add source file to the default group.
@@ -124,11 +122,11 @@ Add_Definitions(-DUNICODE -D_UNICODE)
 # Build
 #
 
-# Write a file in the build directory that will point the executable to it's working directory.
+# Write a file in the build directory that will point to the working directory.
 Get_Filename_Component(WorkingDir "${CMAKE_CURRENT_LIST_DIR}/../Deploy" ABSOLUTE)
 File(WRITE "${CMAKE_BINARY_DIR}/WorkingDir.txt" "${WorkingDir}/")
 
-# Write a file in the build directory that will point to source directory.
+# Write a file in the build directory that will point to the source directory.
 Get_Filename_Component(SourceDir "${CMAKE_CURRENT_LIST_DIR}/../Source" ABSOLUTE)
 File(WRITE "${CMAKE_BINARY_DIR}/SourceDir.txt" "${SourceDir}/")
 
@@ -136,7 +134,7 @@ File(WRITE "${CMAKE_BINARY_DIR}/SourceDir.txt" "${SourceDir}/")
 # Windows
 #
 
-# Visual C++ specific.
+# Visual C++ compiler.
 If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     # Show or hide the console window.
     If(ShowConsole)
@@ -172,7 +170,7 @@ EndIf()
 # Linux
 #
 
-# GCC specific.
+# GCC compiler.
 If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     # Enable C++11 support.
     List(APPEND CMAKE_CXX_FLAGS "-std=c++0x")
