@@ -4,11 +4,10 @@
 // NonCopyable
 //
 
-// Noncopyable base class.
 class NonCopyable
 {
 protected:
-    // Use empty constructor and destructor.
+    // Empty constructor and destructor.
     NonCopyable()
     {
     }

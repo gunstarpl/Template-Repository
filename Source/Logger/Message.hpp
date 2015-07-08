@@ -4,7 +4,7 @@
 
 //
 // Logger Message
-//  An object that contains the message and optionaly it's source.
+//  An object that contains the message and it's meta data.
 //
 
 namespace Logger

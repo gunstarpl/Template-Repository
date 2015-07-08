@@ -9,14 +9,14 @@ size_t StaticArraySize(const Type(&)[Size])
     return Size;
 }
 
-// Clamps a value between lower and upper range.
+// Clamps a value between the lower and upper range.
 template<typename Type>
 Type Clamp(const Type& value, const Type& lower, const Type& upper)
 {
     return std::max(lower, std::min(value, upper));
 }
 
-// Frees STL container memory.
+// Frees a container's memory (for STL implementations only).
 template<typename Type>
 void ClearContainer(Type& container)
 {
