@@ -14,14 +14,13 @@ int main(int argc, char* argv[])
 
     // Create logger output.
     Logger::FileOutput loggerOutput;
+    loggerOutput.Open("Log.txt");
 
-    if(loggerOutput.Open("Log.txt"))
-    {
-        loggerSink.AddOutput(&loggerOutput);
-    }
+    loggerSink.AddOutput(&loggerOutput);
 
+    // Output some text to logger.
     Log() << "Hello world!";
-    
+
     // Output some text to console.
     std::cout << "Hello world!" << std::endl;
     std::cin.get();
