@@ -13,6 +13,7 @@
 
 //
 // Logger
+//
 //  Logs messages to multiple outputs. See other headers for more info.
 //
 //  Creating a logger sink:

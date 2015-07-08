@@ -5,6 +5,7 @@
 
 //
 // Logger Scoped Message
+//
 //  Log message wrapper that sends itself to the 
 //  sink after it reaches the end of it's scope.
 //

@@ -4,6 +4,7 @@
 
 //
 // Delegate
+//
 //  Implementation based on: http://molecularmusings.wordpress.com/2011/09/19/generic-type-safe-delegates-and-events-in-c/
 //
 //  Binding and invoking a function:

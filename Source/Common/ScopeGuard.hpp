@@ -4,6 +4,7 @@
 
 //
 // Scope Guard
+//
 //  Executes a function when the scope guard goes out of it's scope, at it's destruction.
 //
 //  Creating a scope guard:

@@ -9,6 +9,7 @@
 
 //
 // Logger Sink
+//
 //  Entry point for log messages that will be redirected to registered outputs.
 //
 

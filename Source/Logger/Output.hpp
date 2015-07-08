@@ -5,6 +5,7 @@
 
 //
 // Logger Output
+//
 //  Base interface for sink output.
 //
 

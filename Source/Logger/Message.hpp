@@ -4,6 +4,7 @@
 
 //
 // Logger Message
+//
 //  An object that contains the message and it's meta data.
 //
 
