@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Common/NonCopyable.hpp"
-
 //
 // Scope Guard
 //
@@ -41,7 +39,7 @@
 
 // Scope guard class.
 template<typename Type>
-class ScopeGuard : public NonCopyable
+class ScopeGuard : private boost::noncopyable
 {
 public:
     ScopeGuard(Type function) :
