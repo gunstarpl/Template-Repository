@@ -5,8 +5,8 @@ int main(int argc, char* argv[])
     // Initialize debug routines.
     Debug::Initialize();
 
-    // Load build info.
-    Build::LoadInfo();
+    // Initialize build info.
+    Build::Initialize();
 
     // Create logger sink.
     Logger::Sink loggerSink;

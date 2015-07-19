@@ -7,7 +7,7 @@ namespace
     std::string sourceDir;
 }
 
-void Build::LoadInfo()
+void Build::Initialize()
 {
     workingDir = GetTextFileContent("WorkingDir.txt");
     sourceDir = GetTextFileContent("SourceDir.txt");
