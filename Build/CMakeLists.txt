@@ -190,5 +190,6 @@ Find_Package(Boost 1.58.0 COMPONENTS REQUIRED)
 # Add include directory.
 Include_Directories(${Boost_INCLUDE_DIRS})
 
-# Add link directory.
-Link_Directories(${Boost_LIBRARY_DIRS})
+# Link library targets.
+Target_Link_Libraries(${TargetName} ${Boost_LIBRARIES})
+
