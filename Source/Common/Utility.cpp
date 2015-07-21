@@ -3,7 +3,7 @@
 
 std::string GetTextFileContent(std::string filename)
 {
-    std::ifstream file(filename, std::ios::binary);
+    std::ifstream file(filename);
     std::string content;
 
     if(file)
