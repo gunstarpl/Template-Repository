@@ -38,8 +38,6 @@ Set(SourceFiles
     "Common/Logger.cpp"
     "Common/Utility.hpp"
     "Common/Utility.cpp"
-    "Common/ScopeGuard.hpp"
-    "Common/Delegate.hpp"
 )
 
 #

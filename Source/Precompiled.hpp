@@ -13,10 +13,9 @@
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/core/noncopyable.hpp>
+#include <boost/scope_exit.hpp>
 
 #include "Common/Debug.hpp"
 #include "Common/Build.hpp"
-#include "Common/Utility.hpp"
-#include "Common/ScopeGuard.hpp"
-#include "Common/Delegate.hpp"
 #include "Common/Logger.hpp"
+#include "Common/Utility.hpp"
