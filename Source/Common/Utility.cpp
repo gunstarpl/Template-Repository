@@ -1,7 +1,7 @@
 #include "Precompiled.hpp"
 #include "Utility.hpp"
 
-std::string GetTextFileContent(std::string filename)
+std::string Utility::GetTextFileContent(std::string filename)
 {
     std::ifstream file(filename);
     std::string content;
@@ -18,7 +18,7 @@ std::string GetTextFileContent(std::string filename)
     return content;
 }
 
-std::vector<char> GetBinaryFileContent(std::string filename)
+std::vector<char> Utility::GetBinaryFileContent(std::string filename)
 {
     std::ifstream file(filename, std::ios::binary);
     std::vector<char> content;

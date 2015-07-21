@@ -9,8 +9,8 @@ namespace
 
 void Build::Initialize()
 {
-    workingDir = GetTextFileContent("WorkingDir.txt");
-    sourceDir = GetTextFileContent("SourceDir.txt");
+    workingDir = Utility::GetTextFileContent("WorkingDir.txt");
+    sourceDir = Utility::GetTextFileContent("SourceDir.txt");
 }
 
 std::string Build::GetWorkingDir()
