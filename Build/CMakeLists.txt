@@ -34,22 +34,12 @@ Set(SourceFiles
     "Common/Debug.hpp"
     "Common/Build.hpp"
     "Common/Build.cpp"
+    "Common/Logger.hpp"
+    "Common/Logger.cpp"
     "Common/Utility.hpp"
     "Common/Utility.cpp"
     "Common/ScopeGuard.hpp"
     "Common/Delegate.hpp"
-
-    "Logger/Logger.hpp"
-    "Logger/Logger.cpp"
-    "Logger/Message.hpp"
-    "Logger/Message.cpp"
-    "Logger/ScopedMessage.hpp"
-    "Logger/ScopedMessage.cpp"
-    "Logger/Sink.hpp"
-    "Logger/Sink.cpp"
-    "Logger/Output.hpp"
-    "Logger/FileOutput.hpp"
-    "Logger/FileOutput.cpp"
 )
 
 #
@@ -185,7 +175,7 @@ Set(Boost_USE_MULTITHREADED ON)
 Set(Boost_USE_STATIC_RUNTIME OFF)
 
 # Find installed Boost library.
-Find_Package(Boost 1.58.0 COMPONENTS REQUIRED)
+Find_Package(Boost 1.58.0 COMPONENTS chrono thread system date_time filesystem log log_setup REQUIRED)
 
 # Add include directory.
 Include_Directories(${Boost_INCLUDE_DIRS})

@@ -19,4 +19,4 @@
 #include "Common/Utility.hpp"
 #include "Common/ScopeGuard.hpp"
 #include "Common/Delegate.hpp"
-#include "Logger/Logger.hpp"
+#include "Common/Logger.hpp"
