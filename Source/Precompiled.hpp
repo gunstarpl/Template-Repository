@@ -14,6 +14,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/core/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
+#include <boost/range.hpp>
 
 #include "Common/Debug.hpp"
 #include "Common/Build.hpp"

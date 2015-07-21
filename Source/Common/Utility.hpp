@@ -2,13 +2,6 @@
 
 #include "Precompiled.hpp"
 
-// Gets the size of a static array.
-template<typename Type, size_t Size>
-size_t StaticArraySize(const Type(&)[Size])
-{
-    return Size;
-}
-
 // Clamps a value between the lower and upper range.
 template<typename Type>
 Type Clamp(const Type& value, const Type& lower, const Type& upper)
