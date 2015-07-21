@@ -6,11 +6,18 @@
 // Delegate
 //
 //  Implementation based on: http://molecularmusings.wordpress.com/2011/09/19/generic-type-safe-delegates-and-events-in-c/
+//  Be careful not to invoke a delagate to a function of an instance that no longer exists.
 //
 //  Binding and invoking a function:
 //      bool Function(const char* c, int i) { /*...*/ }
 //      Delegate<bool, (const char*, int)> delegate;
 //      delegate.Bind<&Function>();
+//      delegate.Invoke("hello", 5);
+//
+//  Binding and invoking a functor:
+//      auto Object = [](const char* c, int i) { /*...*/ };
+//      Delegate<bool, (const char*, int)> delegate;
+//      delegate.Bind(&Object);
 //      delegate.Invoke("hello", 5);
 //
 //  Binding and invoking a method:
@@ -34,6 +41,12 @@ private:
         return (Function)(std::forward<Arguments>(arguments)...);
     }
 
+    template<class InstanceType>
+    static ReturnType FunctorStub(InstancePtr instance, Arguments... arguments)
+    {
+        return (*static_cast<InstanceType*>(instance))(std::forward<Arguments>(arguments)...);
+    }
+
     template<class InstanceType, ReturnType (InstanceType::*Function)(Arguments...)>
     static ReturnType MethodStub(InstancePtr instance, Arguments... arguments)
     {
@@ -47,11 +60,24 @@ public:
     {
     }
 
+    void Cleanup()
+    {
+        m_instance = nullptr;
+        m_function = nullptr;
+    }
+
     template<ReturnType (*Function)(Arguments...)>
     void Bind()
     {
         m_instance = nullptr;
         m_function = &FunctionStub<Function>;
+    }
+
+    template<class InstanceType>
+    void Bind(InstanceType* instance)
+    {
+        m_instance = instance;
+        m_function = &FunctorStub<InstanceType>;
     }
 
     template<class InstanceType, ReturnType (InstanceType::*Function)(Arguments...)>
