@@ -77,10 +77,10 @@ void Logger::Initialize()
     fileSink->set_formatter(
         log::expressions::stream
             << log::expressions::format_date_time<boost::posix_time::ptime>("TimeStamp", "[%H:%M:%S]")
-            << " : " << log::expressions::smessage << " "
+            << " : " << log::expressions::smessage
 
             #ifdef _DEBUG
-                << log::expressions::format_named_scope("Scope", log::keywords::format = "(%f:%l)")
+                << " " << log::expressions::format_named_scope("Scope", log::keywords::format = "(%f:%l)")
             #endif
     );
 
