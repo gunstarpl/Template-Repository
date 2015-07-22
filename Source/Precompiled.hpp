@@ -16,6 +16,7 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/scope_exit.hpp>
 #include <boost/range.hpp>
+#include <boost/signal.hpp>
 
 #include "Common/Debug.hpp"
 #include "Common/Build.hpp"
