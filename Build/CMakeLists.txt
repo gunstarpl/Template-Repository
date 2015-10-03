@@ -1,9 +1,5 @@
-#
-# Build
-#
-
 # Minimun version required.
-CMake_Minimum_Required(VERSION 3.1.1)
+CMake_Minimum_Required(VERSION 3.1)
 
 #
 # Config
@@ -14,6 +10,7 @@ Set(ProjectName "Project")
 Set(TargetName "Application")
 
 # Application settings.
+Set(WorkingDir "../Deploy")
 Set(ShowConsole "Yes")
 
 #
@@ -34,27 +31,9 @@ Set(SourceFiles
     "Common/Debug.hpp"
     "Common/Build.hpp"
     "Common/Build.cpp"
-    "Common/Logger.hpp"
-    "Common/Logger.cpp"
     "Common/Utility.hpp"
     "Common/Utility.cpp"
 )
-
-#
-# Project
-#
-
-# Create a build project.
-Project(${ProjectName})
-
-# Add the source directory as an include directory.
-Include_Directories(${SourceDir})
-
-# Enable target folders.
-Set_Property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-# Move CMake predefined targets to a separate folder.
-Set_Property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # Append source directory path to each source file.
 Set(SourceFilesTemp)
@@ -65,17 +44,17 @@ EndForEach()
 
 Set(SourceFiles ${SourceFilesTemp})
 
-# Organize source files based on their file paths.
+# Organize source files based on their directory structure.
 ForEach(SourceFile ${SourceFiles})
-    # Get the source file directory path.
+    # Get the path to the source file's directory.
     Get_Filename_Component(SourceFilePath ${SourceFile} PATH)
     
-    # Remove the source directory path.
+    # Remove the path to the base source directory.
     String(REPLACE "${SourceDir}" "" SourceFilePath ${SourceFilePath})
 
     # Add source file to a group.
     If(NOT ${SourceFilePath} STREQUAL "")
-        # Replace folder separators.
+        # Normalize folder separators.
         String(REPLACE "/" "\\" SourceFilePath ${SourceFilePath})
         
         # Remove leading folder separator.
@@ -96,26 +75,38 @@ ForEach(SourceFile ${SourceFiles})
 EndForEach()
 
 #
-# Target
+# Build
 #
+
+# Create the project.
+Project(${ProjectName})
 
 # Create an executable target.
 Add_Executable(${TargetName} ${SourceFiles})
 
+# Add the source directory as an include directory.
+Include_Directories(${SourceDir})
+
 # Enable unicode support.
 Add_Definitions(-DUNICODE -D_UNICODE)
 
+# Enable target folders.
+Set_Property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Move CMake predefined targets to a separate folder.
+Set_Property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
+
 #
-# Build
+# Debug
 #
 
 # Write a file in the build directory that will point to the working directory.
-Get_Filename_Component(WorkingDir "${CMAKE_CURRENT_LIST_DIR}/../Deploy" ABSOLUTE)
-File(WRITE "${CMAKE_BINARY_DIR}/WorkingDir.txt" "${WorkingDir}/")
+Get_Filename_Component(WorkingDirPath "${CMAKE_CURRENT_LIST_DIR}/${WorkingDir}" ABSOLUTE)
+File(WRITE "${CMAKE_BINARY_DIR}/WorkingDir.txt" "${WorkingDirPath}/")
 
 # Write a file in the build directory that will point to the source directory.
-Get_Filename_Component(SourceDir "${CMAKE_CURRENT_LIST_DIR}/../Source" ABSOLUTE)
-File(WRITE "${CMAKE_BINARY_DIR}/SourceDir.txt" "${SourceDir}/")
+Get_Filename_Component(SourceDirPath "${CMAKE_CURRENT_LIST_DIR}/${SourceDir}" ABSOLUTE)
+File(WRITE "${CMAKE_BINARY_DIR}/SourceDir.txt" "${SourceDirPath}/")
 
 #
 # Windows
@@ -160,5 +151,5 @@ EndIf()
 # GCC compiler.
 If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     # Enable C++11 support.
-    List(APPEND CMAKE_CXX_FLAGS "-std=c++0x")
+    List(APPEND CMAKE_CXX_FLAGS "-std=c++11")
 EndIf()
