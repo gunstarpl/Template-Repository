@@ -7,13 +7,8 @@
     #include <stdlib.h>
     #include <crtdbg.h>
 
-    /* 
-    // Conflicts with Boost new operator.
-    // Leaks are still going to be shown,
-    // but without detailed info.
     #define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
     #define new DEBUG_NEW
-    */
 #endif
 
 //
