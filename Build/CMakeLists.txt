@@ -162,21 +162,3 @@ If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     # Enable C++11 support.
     List(APPEND CMAKE_CXX_FLAGS "-std=c++0x")
 EndIf()
-
-#
-# Boost
-#
-
-# Set build options.
-Set(Boost_USE_STATIC_LIBS ON)
-Set(Boost_USE_MULTITHREADED ON)
-Set(Boost_USE_STATIC_RUNTIME OFF)
-
-# Find library.
-Find_Package(Boost 1.58.0 COMPONENTS chrono thread system date_time filesystem log log_setup REQUIRED)
-
-# Add include directory.
-Include_Directories(${Boost_INCLUDE_DIRS})
-
-# Link library targets.
-Target_Link_Libraries(${TargetName} ${Boost_LIBRARIES})
