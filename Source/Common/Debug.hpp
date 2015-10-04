@@ -17,8 +17,7 @@
 
 namespace Debug
 {
-    // Initializes debug routines.
-    // Call once at the very beginning of main().
+    // Initializes debug helpers.
     inline void Initialize()
     {
         // Don't do anything if not in debug mode.
