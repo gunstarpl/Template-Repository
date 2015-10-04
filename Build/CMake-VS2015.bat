@@ -1,7 +1,7 @@
 @echo off
 
 rem Remove existing directory.
-rd /s /q "CMake-VS2015"
+rd /s /q "CMake-VS2015" >nul 2>&1
 
 rem Create an empty directory.
 mkdir "CMake-VS2015"
