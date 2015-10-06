@@ -1,4 +1,4 @@
-# Minimun version required.
+# Minimum version required.
 CMake_Minimum_Required(VERSION 3.1)
 
 #
