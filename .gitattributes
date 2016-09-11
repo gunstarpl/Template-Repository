@@ -1,1 +1,2 @@
+# Do not run GitHub language statistics on third party libraries.
 External/* linguist-vendored
