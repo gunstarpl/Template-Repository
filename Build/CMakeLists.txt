@@ -33,6 +33,7 @@ Set(SourceFiles
     "Common/Build.cpp"
     "Common/Utility.hpp"
     "Common/Utility.cpp"
+    "Common/Noncopyable.hpp"
     "Common/ScopeGuard.hpp"
 )
 

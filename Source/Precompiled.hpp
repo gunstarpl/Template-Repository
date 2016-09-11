@@ -8,4 +8,5 @@
 #include "Common/Build.hpp"
 #include "Common/Debug.hpp"
 #include "Common/Utility.hpp"
+#include "Common/NonCopyable.hpp"
 #include "Common/ScopeGuard.hpp"
