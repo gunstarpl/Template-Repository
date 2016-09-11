@@ -23,11 +23,11 @@ Set(PrecompiledHeader "Precompiled.hpp")
 Set(PrecompiledSource "Precompiled.cpp")
 
 Set(SourceFiles
+    "Main.cpp"
+    
     "${PrecompiledHeader}"
     "${PrecompiledSource}"
-
-    "Main.cpp"
-
+    
     "Common/Debug.hpp"
     "Common/Build.hpp"
     "Common/Build.cpp"
@@ -37,42 +37,49 @@ Set(SourceFiles
 )
 
 # Append source directory path to each source file.
+Message("-- Appending source directory path...")
+
 Set(SourceFilesTemp)
 
 ForEach(SourceFile ${SourceFiles})
     List(APPEND SourceFilesTemp "${SourceDir}/${SourceFile}")
+    Message("SourceFile: ${SourceFile} => ${SourceDir}/${SourceFile}")
 EndForEach()
 
 Set(SourceFiles ${SourceFilesTemp})
 
 # Organize source files based on their directory structure.
+Message("-- Organizing source files...")
+
 ForEach(SourceFile ${SourceFiles})
-    # Get the path to the source file's directory.
+    # Get the relative path to source file's directory.
     Get_Filename_Component(SourceFilePath ${SourceFile} PATH)
     
-    # Remove the path to the base source directory.
+    # Remove the path to base source directory.
     String(REPLACE "${SourceDir}" "" SourceFilePath ${SourceFilePath})
-
-    # Add source file to a group.
+    
+    # Add a source file to a group.
     If(NOT ${SourceFilePath} STREQUAL "")
-        # Normalize folder separators.
+        # Normalize path separators.
         String(REPLACE "/" "\\" SourceFilePath ${SourceFilePath})
         
-        # Remove leading folder separator.
+        # Remove the leading path separator.
         String(SUBSTRING ${SourceFilePath} 0 1 FirstCharacter)
-
+        
         If(FirstCharacter STREQUAL "\\")
             String(LENGTH ${SourceFilePath} SourceFilePathLength)
             Math(EXPR SourceFilePathLength "${SourceFilePathLength} - 1")
             String(SUBSTRING ${SourceFilePath} 1 ${SourceFilePathLength} SourceFilePath)
         EndIf()
-    
+        
         # Add a source file to a corresponding group.
         Source_Group("Source\\${SourceFilePath}" FILES ${SourceFile})
     Else()
-        # Add source file to the default group.
+        # Add a source file to the root group.
         Source_Group("Source" FILES ${SourceFile})
     EndIf()
+    
+    Message("SourceFilePath: ${SourceFile} => ${SourceFilePath}")
 EndForEach()
 
 #
@@ -110,7 +117,7 @@ Get_Filename_Component(SourceDirPath "${CMAKE_CURRENT_LIST_DIR}/${SourceDir}" AB
 File(WRITE "${CMAKE_BINARY_DIR}/SourceDir.txt" "${SourceDirPath}/")
 
 #
-# Windows
+# Platform
 #
 
 # Visual C++ compiler.
@@ -124,7 +131,7 @@ If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     
     # Restore default main() entry instead of WinMain().
     Set_Property(TARGET ${TargetName} APPEND_STRING PROPERTY LINK_FLAGS "/ENTRY:mainCRTStartup ")
-
+    
     # Disable Standard C++ Library warnings.
     Set_Property(TARGET ${TargetName} APPEND_STRING PROPERTY COMPILE_DEFINITIONS "_CRT_SECURE_NO_WARNINGS")
     Set_Property(TARGET ${TargetName} APPEND_STRING PROPERTY COMPILE_DEFINITIONS "_SCL_SECURE_NO_WARNINGS")
@@ -144,10 +151,6 @@ If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         OBJECT_OUTPUTS "${PrecompiledBinary}"
     )
 EndIf()
-
-#
-# Linux
-#
 
 # GCC compiler.
 If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
