@@ -32,6 +32,7 @@ public:
 public:
     Receiver() :
         m_dispatcher(nullptr),
+        m_previous(nullptr),
         m_next(nullptr)
     {
     }
@@ -57,8 +58,10 @@ public:
         if(m_dispatcher != nullptr)
         {
             m_dispatcher->Unsubscribe(*this);
-            Assert(m_dispatcher == nullptr);
-            Assert(m_next == nullptr);
+
+            Assert(m_dispatcher == nullptr, "Dispatcher didn't clear this receiver properly!");
+            Assert(m_previous == nullptr, "Dispatcher didn't clear this receiver properly!");
+            Assert(m_next == nullptr, "Dispatcher didn't clear this receiver properly!");
         }
     }
 
@@ -94,5 +97,6 @@ private:
 private:
     // Intrusive singly linked list.
     DispatcherBase<ReturnType(Arguments...)>* m_dispatcher;
+    Receiver<ReturnType(Arguments...)>*       m_previous;
     Receiver<ReturnType(Arguments...)>*       m_next;
 };

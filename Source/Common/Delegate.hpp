@@ -89,6 +89,8 @@ public:
     template<class InstanceType>
     void Bind(InstanceType* instance)
     {
+        Assert(instance != nullptr, "Received nullptr as functor instance!");
+
         m_instance = instance;
         m_function = &FunctorStub<InstanceType>;
     }
@@ -97,6 +99,8 @@ public:
     template<class InstanceType, ReturnType (InstanceType::*Function)(Arguments...)>
     void Bind(InstanceType* instance)
     {
+        Assert(instance != nullptr, "Received nullptr as method instance!");
+
         m_instance = instance;
         m_function = &MethodStub<InstanceType, Function>;
     }
@@ -104,6 +108,8 @@ public:
     // Invokes the delegate.
     ReturnType Invoke(Arguments... arguments)
     {
+        Assert(m_function != nullptr, "Attempting to invoke delegate without a bound function!");
+
         if(m_function == nullptr)
             return ReturnType();
 

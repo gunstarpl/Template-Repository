@@ -65,9 +65,6 @@ protected:
     template<typename Collector>
     ReturnType Dispatch(Arguments... arguments);
 
-    // Gets the previous receiver.
-    Receiver<ReturnType(Arguments...)>* GetPrevious(Receiver<ReturnType(Arguments...)>& receiver);
-
 private:
     // List of receivers.
     Receiver<ReturnType(Arguments...)>* m_begin;
@@ -102,6 +99,7 @@ class ReceiverInvoker<ReturnType(Arguments...)>
 protected:
     ReturnType Dispatch(Receiver<ReturnType(Arguments...)>* receiver, Arguments... arguments)
     {
+        Assert(receiver != nullptr, "Receiver is nullptr!");
         return receiver->Receive(std::forward<Arguments>(arguments)...);
     }
 };
@@ -116,6 +114,7 @@ class CollectorInvocation<Collector, ReturnType(Arguments...)> : public Receiver
 public:
     bool operator()(Collector& collector, Receiver<ReturnType(Arguments...)>* receiver, Arguments... arguments)
     {
+        Assert(receiver != nullptr, "Receiver is nullptr!");
         return collector(this->Dispatch(receiver, std::forward<Arguments>(arguments)...));
     }
 };
@@ -127,6 +126,7 @@ class CollectorInvocation<Collector, void(Arguments...)> : public ReceiverInvoke
 public:
     bool operator()(Collector& collector, Receiver<void(Arguments...)>* receiver, Arguments... arguments)
     {
+        Assert(receiver != nullptr, "Receiver is nullptr!");
         this->Dispatch(receiver, std::forward<Arguments>(arguments)...);
         return collector();
     }
@@ -143,7 +143,7 @@ DispatcherBase<ReturnType(Arguments...)>::DispatcherBase() :
 template<typename ReturnType, typename... Arguments>
 DispatcherBase<ReturnType(Arguments...)>::~DispatcherBase()
 {
-    Cleanup();
+    this->Cleanup();
 }
 
 template<typename ReturnType, typename... Arguments>
@@ -154,13 +154,16 @@ void DispatcherBase<ReturnType(Arguments...)>::Cleanup()
     
     while(iterator != nullptr)
     {
+        // Get the receiver instance.
         Receiver<ReturnType(Arguments...)>* receiver = iterator;
+        Assert(receiver->m_dispatcher != nullptr, "Receiver's dispatcher is nullptr!");
 
         // Advance to the next receiver.
         iterator = iterator->m_next;
 
         // Unsubscribe a receiver.
         receiver->m_dispatcher = nullptr;
+        receiver->m_previous = nullptr;
         receiver->m_next = nullptr;
     }
     
@@ -175,19 +178,23 @@ void DispatcherBase<ReturnType(Arguments...)>::Subscribe(Receiver<ReturnType(Arg
     if(receiver.m_dispatcher != nullptr)
         return;
 
-    Assert(receiver.m_next == nullptr);
+    Assert(receiver.m_previous == nullptr, "Receiver's previous list element is not nullptr!");
+    Assert(receiver.m_next == nullptr, "Receiver's next list element is not nullptr!");
     
     // Add receiver to the linked list.
     if(m_begin == nullptr)
     {
-        Assert(m_end == nullptr);
+        Assert(m_end == nullptr, "Linked list's beginning is nullptr but the end is not!");
+
         m_begin = &receiver;
         m_end = &receiver;
     }
     else
     {
-        Assert(m_end != nullptr);
+        Assert(m_end != nullptr, "Linked list's end is nullptr but the beginnig is not!");
+
         m_end->m_next = &receiver;
+        receiver.m_previous = m_end;
         m_end = &receiver;
     }
 
@@ -205,33 +212,46 @@ void DispatcherBase<ReturnType(Arguments...)>::Unsubscribe(Receiver<ReturnType(A
     // Remove receiver from the linked list.
     if(m_begin == &receiver)
     {
-        // Removing from the beginning of the list.
         if(m_end == &receiver)
         {
+            // Removing as the only element on the list.
             m_begin = nullptr;
             m_end = nullptr;
         }
         else
         {
-            m_begin = receiver.m_next; 
+            Assert(receiver.m_next != nullptr, "Receiver's next list element is nullptr!");
+
+            // Removing from the beginning of the list.
+            m_begin = receiver.m_next;
+            receiver.m_next->m_previous = nullptr;
         }
     }
     else
     {
-        // Removing from anywhere else in the list.
-        Receiver<ReturnType(Arguments...)>* previous = this->GetPrevious(receiver);
-        Assert(previous != nullptr);
-
-        previous->m_next = receiver.m_next;
-
         if(m_end == &receiver)
         {
-            m_end = previous;
+            Assert(receiver.m_previous != nullptr, "Receiver's previous list element is nullptr!");
+
+            // Removing from the end of the list.
+            m_end = receiver.m_previous;
+            receiver.m_previous->m_next = nullptr;
+
+        }
+        else
+        {
+            Assert(receiver.m_previous != nullptr, "Receiver's previous list element is nullptr!");
+            Assert(receiver.m_next != nullptr, "Receiver's next list element is nullptr!");
+
+            // Removing in the middle of the list.
+            receiver.m_previous->m_next = receiver.m_next;
+            receiver.m_next->m_previous = receiver.m_previous;
         }
     }
 
     // Clear receiver's members.
     receiver.m_dispatcher = nullptr;
+    receiver.m_previous = nullptr;
     receiver.m_next = nullptr;
 }
 
@@ -244,7 +264,7 @@ ReturnType DispatcherBase<ReturnType(Arguments...)>::Dispatch(Arguments... argum
 
     // Send an event to all receivers.
     Receiver<ReturnType(Arguments...)>* receiver = m_begin;
-        
+
     while(receiver != nullptr)
     {
         // Send an event to a receiver and collect the result.
@@ -258,30 +278,6 @@ ReturnType DispatcherBase<ReturnType(Arguments...)>::Dispatch(Arguments... argum
 
     // Return collected result.
     return collector.GetResult();
-}
-
-template<typename ReturnType, typename... Arguments>
-Receiver<ReturnType(Arguments...)>* DispatcherBase<ReturnType(Arguments...)>::GetPrevious(Receiver<ReturnType(Arguments...)>& receiver)
-{
-    // Iterate through all receivers.
-    Receiver<ReturnType(Arguments...)>* iterator = m_begin;
-    Receiver<ReturnType(Arguments...)>* previous = nullptr;
-
-    while(iterator != nullptr)
-    {
-        // Check if it's the one we are looking for.
-        if(iterator == &receiver)
-            break;
-
-        // Save the previous iterator.
-        previous = iterator;
-
-        // Iterate to the next receiver.
-        iterator = iterator->m_next;
-    }
-
-    // Return the previous receiver.
-    return previous;
 }
 
 template<typename ReturnType, typename... Arguments>

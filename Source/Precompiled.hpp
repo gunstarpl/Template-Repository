@@ -40,5 +40,7 @@
 #include "Common/NonCopyable.hpp"
 #include "Common/ScopeGuard.hpp"
 #include "Common/Delegate.hpp"
+#include "Common/Receiver.hpp"
+#include "Common/Dispatcher.hpp"
 #include "Common/Collector.hpp"
 #include "Logger/Logger.hpp"
