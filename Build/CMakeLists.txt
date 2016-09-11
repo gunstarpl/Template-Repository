@@ -11,7 +11,7 @@ Set(TargetName "Application")
 
 # Application settings.
 Set(WorkingDir "../Deploy")
-Set(ShowConsole "Yes")
+Set(ShowConsole ON)
 
 #
 # Source
