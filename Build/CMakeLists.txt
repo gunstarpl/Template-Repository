@@ -35,6 +35,7 @@ Set(SourceFiles
     "Common/Utility.cpp"
     "Common/Noncopyable.hpp"
     "Common/ScopeGuard.hpp"
+    "Common/Delegate.hpp"
     "Common/Collector.hpp"
 
     "Logger/Logger.hpp"

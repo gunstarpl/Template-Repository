@@ -33,4 +33,6 @@
 #include "Common/Utility.hpp"
 #include "Common/NonCopyable.hpp"
 #include "Common/ScopeGuard.hpp"
+#include "Common/Delegate.hpp"
+#include "Common/Collector.hpp"
 #include "Logger/Logger.hpp"
