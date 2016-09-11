@@ -191,7 +191,7 @@ void DispatcherBase<ReturnType(Arguments...)>::Subscribe(Receiver<ReturnType(Arg
     }
     else
     {
-        Assert(m_end != nullptr, "Linked list's end is nullptr but the beginnig is not!");
+        Assert(m_end != nullptr, "Linked list's end is nullptr but the beginning is not!");
 
         m_end->m_next = &receiver;
         receiver.m_previous = m_end;
@@ -224,7 +224,7 @@ void DispatcherBase<ReturnType(Arguments...)>::Unsubscribe(Receiver<ReturnType(A
 
             // Removing from the beginning of the list.
             m_begin = receiver.m_next;
-            receiver.m_next->m_previous = nullptr;
+            m_begin->m_previous = nullptr;
         }
     }
     else
@@ -235,7 +235,7 @@ void DispatcherBase<ReturnType(Arguments...)>::Unsubscribe(Receiver<ReturnType(A
 
             // Removing from the end of the list.
             m_end = receiver.m_previous;
-            receiver.m_previous->m_next = nullptr;
+            m_end->m_next = nullptr;
 
         }
         else
