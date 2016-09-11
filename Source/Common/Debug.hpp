@@ -5,15 +5,18 @@
 //
 
 // Windows specific defines.
-#if defined(_WINDOWS) && defined(_DEBUG)
+
+#if defined(WIN32) && !defined(NDEBUG)
     #define _CRTDBG_MAP_ALLOC
     #define _CRTDBG_MAP_ALLOC_NEW
     #include <stdlib.h>
     #include <crtdbg.h>
 
+    /* 
     // Override new operator (breaks placement new).
     #define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
     #define new DEBUG_NEW
+    */
 #endif
 
 //
@@ -26,12 +29,12 @@ namespace Debug
     inline void Initialize()
     {
         // Don't do anything if not in debug mode.
-        #ifndef _DEBUG
+        #ifdef NDEBUG
             return;
         #endif
 
         // Enable memory leak detection.
-        #if defined(_WINDOWS) && defined(_DEBUG)
+        #if defined(WIN32)
             _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
         #endif
     }
@@ -66,19 +69,19 @@ namespace Debug
 //
 
 #ifndef NDEBUG
-    #define ASSERT_SIMPLE(expression)                             \
-            if(!(expression))                                     \
-            {                                                     \
-                DEBUG_PRINT_ASSERT_SIMPLE(#expression);           \
-                __debugbreak();                                   \
-            }
+    #define ASSERT_SIMPLE(expression)                         \
+        if(!(expression))                                     \
+        {                                                     \
+            DEBUG_PRINT_ASSERT_SIMPLE(#expression);           \
+            __debugbreak();                                   \
+        }
 
-    #define ASSERT_MESSAGE(expression, message)                   \
-            if(!(expression))                                     \
-            {                                                     \
-                DBEUG_PRINT_ASSERT_MESSAGE(#expression, message); \
-                __debugbreak();                                   \
-            }
+    #define ASSERT_MESSAGE(expression, message)               \
+        if(!(expression))                                     \
+        {                                                     \
+            DBEUG_PRINT_ASSERT_MESSAGE(#expression, message); \
+            __debugbreak();                                   \
+        }
 #else
     #define ASSERT_SIMPLE(expression) ((void)0)
     #define ASSERT_MESSAGE(expression, message) ((void)0) 
@@ -105,33 +108,33 @@ namespace Debug
 //
 
 #ifndef NDEBUG
-    #define VERIFY_SIMPLE(expression)                             \
-            if(!(expression))                                     \
-            {                                                     \
-                DEBUG_PRINT_ASSERT_SIMPLE(#expression);           \
-                __debugbreak();                                   \
-            }
+    #define VERIFY_SIMPLE(expression)                         \
+        if(!(expression))                                     \
+        {                                                     \
+            DEBUG_PRINT_ASSERT_SIMPLE(#expression);           \
+            __debugbreak();                                   \
+        }
 
-    #define VERIFY_MESSAGE(expression, message)                   \
-            if(!(expression))                                     \
-            {                                                     \
-                DBEUG_PRINT_ASSERT_MESSAGE(#expression, message); \
-                __debugbreak();                                   \
-            }
+    #define VERIFY_MESSAGE(expression, message)               \
+        if(!(expression))                                     \
+        {                                                     \
+            DBEUG_PRINT_ASSERT_MESSAGE(#expression, message); \
+            __debugbreak();                                   \
+        }
 #else
-    #define VERIFY_SIMPLE(expression)                             \
-            if(!(expression))                                     \
-            {                                                     \
-                DEBUG_PRINT_ASSERT_SIMPLE(#expression);           \
-                __debugbreak();                                   \
-            }
+    #define VERIFY_SIMPLE(expression)                         \
+        if(!(expression))                                     \
+        {                                                     \
+            DEBUG_PRINT_ASSERT_SIMPLE(#expression);           \
+            __debugbreak();                                   \
+        }
 
-    #define VERIFY_MESSAGE(expression, message)                   \
-            if(!(expression))                                     \
-            {                                                     \
-                DBEUG_PRINT_ASSERT_MESSAGE(#expression, message); \
-                __debugbreak();                                   \
-            }
+    #define VERIFY_MESSAGE(expression, message)               \
+        if(!(expression))                                     \
+        {                                                     \
+            DBEUG_PRINT_ASSERT_MESSAGE(#expression, message); \
+            __debugbreak();                                   \
+        }
 #endif
 
 #define VERIFY_DEDUCE(arg1, arg2, arg3, ...) arg3
