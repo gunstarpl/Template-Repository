@@ -84,11 +84,9 @@ Message& Message::SetSource(const char* source)
 
 Message& Message::SetLine(int line)
 {
-    if(line > 0)
-    {
-        m_line = line;
-    }
+    Assert(line > 0, "Attempting to set an invalid source line!");
 
+    m_line = line;
     return *this;
 }
 
