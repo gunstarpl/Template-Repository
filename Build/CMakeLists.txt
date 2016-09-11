@@ -36,6 +36,8 @@ Set(SourceFiles
     "Common/Noncopyable.hpp"
     "Common/ScopeGuard.hpp"
     "Common/Delegate.hpp"
+    "Common/Receiver.hpp"
+    "Common/Dispatcher.hpp"
     "Common/Collector.hpp"
 
     "Logger/Logger.hpp"

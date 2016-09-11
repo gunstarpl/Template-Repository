@@ -6,6 +6,7 @@
 // Delegate
 //  Binds a function which can be invoked at a later time.
 //  Be careful not to invoke a delagate to a method of an instance that no longer exists.
+//  Check Receiver and Dispatcher classes for a subscription based solution that wraps delegates.
 //
 //  Binding and invoking a function:
 //      bool Function(const char* c, int i) { /*...*/ }
@@ -63,6 +64,10 @@ public:
     Delegate() :
         m_instance(nullptr),
         m_function(nullptr)
+    {
+    }
+
+    virtual ~Delegate()
     {
     }
 
