@@ -1,6 +1,32 @@
 #include "Precompiled.hpp"
 #include "Utility.hpp"
 
+std::string Utility::GetFilePath(std::string filename)
+{
+    std::string path;
+
+    std::size_t it = filename.find_last_of("/\\");
+    if(it != std::string::npos)
+    {
+        path = filename.substr(0, it + 1);
+    }
+
+    return path;
+}
+
+std::string Utility::GetFileExtension(std::string filename)
+{
+    std::string extension;
+
+    std::size_t it = filename.find_last_of(".");
+    if(it != std::string::npos)
+    {
+        extension = filename.substr(it + 1);
+    }
+
+    return extension;
+}
+
 std::string Utility::GetTextFileContent(std::string filename)
 {
     std::ifstream file(filename);
