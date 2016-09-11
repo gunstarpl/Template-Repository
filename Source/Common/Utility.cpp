@@ -9,7 +9,7 @@ std::string Utility::GetTextFileContent(std::string filename)
     if(file)
     {
         file.seekg(0, std::ios::end);
-        content.resize((unsigned int) file.tellg());
+        content.resize((unsigned int)file.tellg());
         file.seekg(0, std::ios::beg);
 
         file.read(&content[0], content.size());

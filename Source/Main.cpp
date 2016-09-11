@@ -2,8 +2,8 @@
 
 int main(int argc, char* argv[])
 {
-    Debug::Initialize();
     Build::Initialize();
+    Debug::Initialize();
 
     return 0;
 }
