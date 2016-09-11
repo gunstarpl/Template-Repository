@@ -42,12 +42,9 @@
 
 // Scope guard class.
 template<typename Type>
-class ScopeGuard
+class ScopeGuard : private NonCopyable
 {
 public:
-    ScopeGuard(const ScopeGuard<Type>&) = delete;
-    ScopeGuard& operator=(const ScopeGuard<Type>&) = delete;
-
     explicit ScopeGuard(Type function) :
         m_function(function)
     {
