@@ -35,6 +35,20 @@ Set(SourceFiles
     "Common/Utility.cpp"
     "Common/Noncopyable.hpp"
     "Common/ScopeGuard.hpp"
+
+    "Logger/Logger.hpp"
+    "Logger/Logger.cpp"
+    "Logger/Message.hpp"
+    "Logger/Message.cpp"
+    "Logger/Output.hpp"
+    "Logger/Sink.hpp"
+    "Logger/Sink.cpp"
+    "Logger/Outputs/DebuggerOutput.hpp"
+    "Logger/Outputs/DebuggerOutput.cpp"
+    "Logger/Outputs/ConsoleOutput.hpp"
+    "Logger/Outputs/ConsoleOutput.cpp"
+    "Logger/Outputs/FileOutput.hpp"
+    "Logger/Outputs/FileOutput.cpp"
 )
 
 # Append source directory path to each source file.
@@ -61,7 +75,7 @@ ForEach(SourceFile ${SourceFiles})
     
     # Add a source file to a group.
     If(NOT ${SourceFilePath} STREQUAL "")
-        # Normalize path separators.
+        # Normalize path separators as required by Visual Studio.
         String(REPLACE "/" "\\" SourceFilePath ${SourceFilePath})
         
         # Remove the leading path separator.
