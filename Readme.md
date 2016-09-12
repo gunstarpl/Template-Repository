@@ -1,4 +1,4 @@
-Template Project
+Template Repository
 ====
 Base repository for future C++ projects.
 
