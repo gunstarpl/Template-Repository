@@ -1,5 +1,5 @@
 # Minimum version required.
-CMake_Minimum_Required(VERSION 3.6.2)
+CMake_Minimum_Required(VERSION 3.9.5)
 
 #
 # Config
@@ -56,7 +56,7 @@ Set(SourceFiles
 )
 
 # Append source directory path to each source file.
-Message("-- Appending source directory path...")
+Message("-- Appending directory path to each source file...")
 
 Set(SourceFilesTemp)
 
@@ -68,7 +68,7 @@ EndForEach()
 Set(SourceFiles ${SourceFilesTemp})
 
 # Organize source files based on their directory structure.
-Message("-- Organizing source files...")
+Message("-- Organizing source files by their directories...")
 
 ForEach(SourceFile ${SourceFiles})
     # Get the relative path to source file's directory.
@@ -79,7 +79,7 @@ ForEach(SourceFile ${SourceFiles})
     
     # Add a source file to a group.
     If(NOT ${SourceFilePath} STREQUAL "")
-        # Normalize path separators as required by Visual Studio.
+        # Normalize path separators as required by e.g. Visual Studio.
         String(REPLACE "/" "\\" SourceFilePath ${SourceFilePath})
         
         # Remove the leading path separator.
@@ -120,7 +120,7 @@ Add_Definitions(-DUNICODE -D_UNICODE)
 # Enable target folders.
 Set_Property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# Move CMake predefined targets to a separate folder.
+# Move predefined targets to a separate folder.
 Set_Property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 #
@@ -173,6 +173,6 @@ EndIf()
 
 # GCC compiler.
 If("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    # Enable C++11 support.
+    # Enable C++11 support by default.
     List(APPEND CMAKE_CXX_FLAGS "-std=c++11")
 EndIf()
