@@ -2,33 +2,34 @@
 
 #include "Precompiled.hpp"
 
-//
-// Delegate
-//  Binds a function which can be invoked at a later time.
-//  Be careful not to invoke a delagate to a method of an instance that no longer exists.
-//  Check Receiver and Dispatcher classes for a subscription based solution that wraps delegates.
-//
-//  Binding and invoking a function:
-//      bool Function(const char* c, int i) { /*...*/ }
-//      Delegate<bool(const char*, int)> delegate;
-//      delegate.Bind<&Function>();
-//      delegate.Invoke("hello", 5);
-//
-//  Binding and invoking a functor:
-//      auto Object = [](const char* c, int i) { /*...*/ };
-//      Delegate<bool(const char*, int)> delegate;
-//      delegate.Bind(&Object);
-//      delegate.Invoke("hello", 5);
-//
-//  Binding and invoking a method:
-//      bool Class::Function(const char* c, int i) { /*...*/ }
-//      Class instance;
-//      Delegate<bool(const char*, int)> delegate;
-//      delegate.Bind<Class, &Class::Function>(&instance);
-//      delegate.Invoke("hello", 5);
-//
-//  Implementation based on: http://molecularmusings.wordpress.com/2011/09/19/generic-type-safe-delegates-and-events-in-c/
-//
+/*
+    Delegate Template
+
+    Binds a function which can be invoked at a later time.
+    Be careful not to invoke a delagate to a method of an instance that no longer exists.
+    Check Receiver and Dispatcher templates for a subscription based solution that wraps delegates.
+    
+    Binding and invoking a function:
+        bool Function(const char* c, int i) { ... }
+        Delegate<bool(const char*, int)> delegate;
+        delegate.Bind<&Function>();
+        delegate.Invoke("hello", 5);
+    
+    Binding and invoking a functor:
+        auto Object = [](const char* c, int i) { ... };
+        Delegate<bool(const char*, int)> delegate;
+        delegate.Bind(&Object);
+        delegate.Invoke("hello", 5);
+    
+    Binding and invoking a method:
+        bool Class::Function(const char* c, int i) { ... }
+        Class instance;
+        Delegate<bool(const char*, int)> delegate;
+        delegate.Bind<Class, &Class::Function>(&instance);
+        delegate.Invoke("hello", 5);
+    
+    Implementation based on: http://molecularmusings.wordpress.com/2011/09/19/generic-type-safe-delegates-and-events-in-c/
+*/
 
 template<typename Type>
 class Delegate;

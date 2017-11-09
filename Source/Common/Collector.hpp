@@ -2,11 +2,12 @@
 
 #include "Precompiled.hpp"
 
-//
-// Collectors
-//  Collects return types of multiple invocations.
-//  Returns boolean on call that indicates if collection should continue.
-//
+/*
+    Collector Templates
+    
+    Utility classes for storing return values of multiple invocations.
+    Returns boolean on a call that indicates if collection should continue.
+*/
 
 // Default collector.
 template<typename ReturnType>

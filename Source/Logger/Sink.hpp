@@ -2,10 +2,11 @@
 
 #include "Precompiled.hpp"
 
-//
-// Sink
-//  Writes messages to multiple outputs.
-//
+/*
+    Logger Sink Class
+
+    Writes messages to multiple outputs.
+*/
 
 namespace Logger
 {

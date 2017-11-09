@@ -2,10 +2,11 @@
 
 #include "Precompiled.hpp"
 
-//
-// Output
-//  Base interface for output implementations.
-//
+/*
+    Logger Output Interface
+    
+    Base class for output implementations.
+*/
 
 namespace Logger
 {

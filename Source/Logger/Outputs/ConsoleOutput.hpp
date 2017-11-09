@@ -3,10 +3,11 @@
 #include "Precompiled.hpp"
 #include "Logger/Output.hpp"
 
-//
-// Console Output
-//  Writes log messsages to the console window.
-//
+/*
+    Logger Console Output Class
+
+    Writes log messsages to the console's window.
+*/
 
 namespace Logger
 {

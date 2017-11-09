@@ -1,11 +1,10 @@
 #pragma once
 
-//
-// Platform Defines
-//
+/*
+    Platform Defines
+*/
 
 // Windows specific defines.
-
 #if defined(WIN32) && !defined(NDEBUG)
     #define _CRTDBG_MAP_ALLOC
     #define _CRTDBG_MAP_ALLOC_NEW
@@ -19,9 +18,9 @@
     */
 #endif
 
-//
-// Debug
-//
+/*
+    Debug Utility
+*/
 
 namespace Debug
 {
@@ -40,9 +39,9 @@ namespace Debug
     }
 }
 
-//
-// Debug Macros
-//
+/*
+    Debug Macros
+*/
 
 #define DEBUG_EXPAND_MACRO(x) x
 
@@ -54,19 +53,20 @@ namespace Debug
     Logger::ScopedMessage(Logger::GetGlobal()).SetSource(__FILE__).SetLine(__LINE__) \
         << "Assertion failed: \"" << expression << "\" - " << message;
 
-//
-// Assert Macro
-//  Makes sure that a given expression is true.
-//	Used to check for programming errors during debugging and development.
-//
-//  Behaviour in different build types:
-//  - Debug: Triggers a breakpoint
-//  - Release: Check is stripped
-//
-//  Usage:
-//      Assert(m_initialized);
-//      Assert(instance != nullptr, "Invalid instance.");
-//
+/*
+    Assert Macros
+
+    Makes sure that a given expression is true.
+    Used to check for programming errors during debugging and development.
+    
+    Behaviour in different build types:
+    - Debug: Triggers a breakpoint
+    - Release: Check is stripped
+    
+    Usage:
+        Assert(m_initialized);
+        Assert(instance != nullptr, "Invalid instance.");
+*/
 
 #ifndef NDEBUG
     #define ASSERT_SIMPLE(expression)                         \
@@ -92,20 +92,21 @@ namespace Debug
 
 #define Assert(...) DEBUG_EXPAND_MACRO(ASSERT_CHOOSER(__VA_ARGS__)(__VA_ARGS__))
 
-//
-// Verify Macro
-//  Makes sure that a given expression is true.
-//	Same as Assert(), but triggers in release builds.
-//	Runtime checks should be prefered instead of this.
-//
-//  Behaviour in different build types:
-//  - Debug: Triggers a breakpoint
-//  - Release: Triggers a breakpoint
-//
-//  Usage:
-//      Verify(m_initialized);
-//      Verify(instance != nullptr, "Invalid instance.");
-//
+/*
+    Verify Macro
+    
+    Makes sure that a given expression is true.
+    Same as Assert(), but triggers in release builds.
+    Runtime checks should be prefered instead of this.
+    
+    Behaviour in different build types:
+    - Debug: Triggers a breakpoint
+    - Release: Triggers a breakpoint
+    
+    Usage:
+        Verify(m_initialized);
+        Verify(instance != nullptr, "Invalid instance.");
+*/
 
 #ifndef NDEBUG
     #define VERIFY_SIMPLE(expression)                         \

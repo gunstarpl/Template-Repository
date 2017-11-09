@@ -3,10 +3,11 @@
 #include "Precompiled.hpp"
 #include "Logger/Output.hpp"
 
-//
-// File Output
-//  Writes log messages to a file.
-//
+/*
+    Logger File Output Class
+
+    Writes log messages to a file.
+*/
 
 namespace Logger
 {
@@ -16,7 +17,7 @@ namespace Logger
         FileOutput();
         ~FileOutput();
 
-        // Restores an instance to it's original state.
+        // Restores an instance to its original state.
         void Cleanup();
         
         // Initializes the file output.

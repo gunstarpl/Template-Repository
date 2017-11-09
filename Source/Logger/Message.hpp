@@ -2,10 +2,11 @@
 
 #include "Precompiled.hpp"
 
-//
-// Message
-//  Logger message object.
-//
+/*
+    Logger Message Class
+
+    Object that holds a messages along with its metadata.
+*/
 
 namespace Logger
 {
@@ -46,10 +47,11 @@ namespace Logger
     };
 }
 
-//
-// Scoped Message
-//  Logger message object that writes to a sink at the end of it's lifetime.
-//
+/*
+    Scoped Logger Message Class
+
+    Logger message object that writes to a sink at the end of its lifetime.
+*/
 
 namespace Logger
 {

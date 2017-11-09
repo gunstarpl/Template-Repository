@@ -1,8 +1,8 @@
 #pragma once
 
-//
-// Standard
-//
+/*
+    Standard
+*/
 
 #include <cctype>
 #include <typeindex>
@@ -19,9 +19,9 @@
 #include <queue>
 #include <map>
 
-//
-// External
-//
+/*
+    External
+*/
 
 // Windows
 #ifdef WIN32
@@ -30,9 +30,9 @@
     #include <windows.h>
 #endif
 
-//
-// Project
-//
+/*
+    Project
+*/
 
 #include "Common/Build.hpp"
 #include "Common/Debug.hpp"

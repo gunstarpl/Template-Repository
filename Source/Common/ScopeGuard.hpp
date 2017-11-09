@@ -1,46 +1,47 @@
 #pragma once
 
-//
-// Scope Guard
-//  Executes a set function at the end of it's lifetime.
-//
-//  Creating a scope guard:
-//      int* array = new int[10];
-//      auto Cleanup = MakeScopeGuard([&]()
-//      {
-//          delete[] array;
-//      });
-//
-//  Using a scope guard macro:
-//      int* array = new int[10];
-//      SCOPE_GUARD(delete[] array);
-//
-//  Using a conditional scope guard macro:
-//      bool cleanup = true;
-//      int* array = new int[10];
-//      SCOPE_GUARD_IF(cleanup, delete[] array);
-//
-//  Using braced scope guard macros:
-//      int* array = new int[10];
-//      SCOPE_GUARD_BEGIN();
-//      {
-//          delete[] array;
-//          array = nullptr;
-//      }
-//      SCOPE_GUARD_END();
-//
-//  Using braced conditonal scope guard macros:
-//      bool cleanup = true;
-//      int* array = new int[10];
-//      SCOPE_GUARD_BEGIN(cleanup);
-//      {
-//          delete[] array;
-//          array = nullptr;
-//      }
-//      SCOPE_GUARD_END();
-//
+/*
+    Scope Guard Template
 
-// Scope guard class.
+    Executes a set function at the end of its lifetime.
+    
+    Creating a scope guard:
+        int* array = new int[10];
+        auto Cleanup = MakeScopeGuard([&]()
+        {
+            delete[] array;
+        });
+    
+    Using a scope guard macro:
+        int* array = new int[10];
+        SCOPE_GUARD(delete[] array);
+    
+    Using a conditional scope guard macro:
+        bool cleanup = true;
+        int* array = new int[10];
+        SCOPE_GUARD_IF(cleanup, delete[] array);
+    
+    Using braced scope guard macros:
+        int* array = new int[10];
+        SCOPE_GUARD_BEGIN();
+        {
+            delete[] array;
+            array = nullptr;
+        }
+        SCOPE_GUARD_END();
+    
+    Using braced conditonal scope guard macros:
+        bool cleanup = true;
+        int* array = new int[10];
+        SCOPE_GUARD_BEGIN(cleanup);
+        {
+            delete[] array;
+            array = nullptr;
+        }
+        SCOPE_GUARD_END();
+*/
+
+// Scope guard template class.
 template<typename Type>
 class ScopeGuard : private NonCopyable
 {

@@ -2,9 +2,9 @@
 
 #include "Precompiled.hpp"
 
-//
-// Utility
-//
+/*
+    Utility
+*/
 
 namespace Utility
 {
@@ -15,7 +15,7 @@ namespace Utility
         return Size;
     }
 
-    // Frees STL container's memory.
+    // Frees container's memory by replacing its content.
     template<typename Type>
     void ClearContainer(Type& container)
     {

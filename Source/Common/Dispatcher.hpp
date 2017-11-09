@@ -8,35 +8,36 @@
 template<typename Type>
 class Receiver;
 
-//
-// Dispatcher
-//  Holds a list of subscribed receivers that can be invoked all at once. 
-//  More safe than using raw delegates as unsubscribing is automated at 
-//  receiver's destruction. No dangerous dangling pointers are left.
-//
-//  A single dispatcher instance can have multiple receivers subscribed,
-//  but a single receiver can be only subscribed to one dispatcher.
-//
-//  Example usage:
-//      struct EventData { /* ... */ };
-//      
-//      void Class::FunctionA(const EventData& event) { /*...*/ }
-//      void Class::FunctionB(const EventData& event) { /*...*/ }
-//      Class instance;
-//      
-//      Receiver<void(const EventData&)> receiverA;
-//      receiverA.Bind<Class, &Class::FunctionA>(&instance);
-//      
-//      Receiver<void(const EventData&)> receiverB;
-//      receiverB.Bind<Class, &Class::FunctionB>(&instance);
-//      
-//      Dispatcher<void(const EventData&)> dispatcher;
-//      dispatcher.Subscribe(receiverA);
-//      dispatcher.Subscribe(receiverB);
-//      dispatcher.Dispatch(EventData(/* ... */));
-//
+/*
+    Dispatcher Template
 
-// Dispatcher base class.
+    Holds a list of subscribed receivers that can be invoked all at once. 
+    More safe than using raw delegates as unsubscribing is automated at 
+    receiver's destruction. No dangerous dangling pointers are left.
+
+    A single dispatcher instance can have multiple receivers subscribed,
+    but a single receiver can be only subscribed to one dispatcher.
+
+    Example usage:
+        struct EventData { ... };
+    
+        void Class::FunctionA(const EventData& event) { ... }
+        void Class::FunctionB(const EventData& event) { ... }
+        Class instance;
+    
+        Receiver<void(const EventData&)> receiverA;
+        receiverA.Bind<Class, &Class::FunctionA>(&instance);
+    
+        Receiver<void(const EventData&)> receiverB;
+        receiverB.Bind<Class, &Class::FunctionB>(&instance);
+    
+        Dispatcher<void(const EventData&)> dispatcher;
+        dispatcher.Subscribe(receiverA);
+        dispatcher.Subscribe(receiverB);
+        dispatcher.Dispatch(EventData(...));
+*/
+
+// Dispatcher base template class.
 template<typename Type>
 class DispatcherBase;
 
@@ -47,7 +48,7 @@ protected:
     DispatcherBase();
     virtual ~DispatcherBase();
 
-    // Restores instance to it's original state.
+    // Restores instance to its original state.
     void Cleanup();
 
 public:
@@ -57,7 +58,7 @@ public:
     // Unsubscribes a receiver.
     void Unsubscribe(Receiver<ReturnType(Arguments...)>& receiver);
 
-    // Checks if has any subscribers.
+    // Checks if dispatcher has any subscribers.
     bool HasSubscribers() const;
 
 protected:
@@ -71,7 +72,7 @@ private:
     Receiver<ReturnType(Arguments...)>* m_end;
 };
 
-// Dispatcher class.
+// Dispatcher template class.
 template<typename Type, class Collector = CollectDefault<typename std::function<Type>::result_type>>
 class Dispatcher;
 
@@ -79,7 +80,7 @@ template<typename Collector, typename ReturnType, typename... Arguments>
 class Dispatcher<ReturnType(Arguments...), Collector> : public DispatcherBase<ReturnType(Arguments...)>
 {
 public:
-    // Restores instance to it's original state.
+    // Restores instance to its original state.
     void Cleanup();
 
     // Invokes receivers with following arguments.
@@ -89,7 +90,7 @@ public:
     ReturnType operator()(Arguments... arguments);
 };
 
-// Receiver invoker class.
+// Receiver invoker template class.
 template<typename Type>
 class ReceiverInvoker;
 
@@ -104,7 +105,7 @@ protected:
     }
 };
 
-// Collector invocation for non void return types.
+// Collector invocation template class for non void return types.
 template<typename Collector, typename Type>
 class CollectorInvocation;
 
@@ -119,7 +120,7 @@ public:
     }
 };
 
-// Collector invocation for void return types.
+// Collector invocation template class for void return types.
 template<class Collector, typename... Arguments>
 class CollectorInvocation<Collector, void(Arguments...)> : public ReceiverInvoker<void(Arguments...)>
 {

@@ -4,14 +4,15 @@
 #include "Logger/Message.hpp"
 #include "Logger/Sink.hpp"
 
-//
-// Logger
-//  Writes log messages to multiple outputs for debugging purposes.
-//
-//  Example usage:
-//      Logger::Initialize();
-//      Log() << "Hello world!";
-//
+/*
+    Logger Namespace
+
+    Writes log messages to multiple outputs for debugging purposes.
+    
+    Example usage:
+        Logger::Initialize();
+        Log() << "Hello world!";
+*/
 
 namespace Logger
 {

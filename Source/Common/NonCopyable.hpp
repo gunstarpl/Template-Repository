@@ -1,15 +1,16 @@
 #pragma once
 
-//
-// NonCopyable
-//  Prevents an instance of derived class from being copied.
-//
-//  Example usage:
-//      class Object : private NonCopyable
-//      {
-//          /* ... */
-//      }
-//
+/*
+    NonCopyable Base Class
+
+    Prevents an instance of a derived class from being copied.
+    
+    Example usage:
+        class Object : private NonCopyable
+        {
+            ...
+        }
+*/
 
 class NonCopyable
 {

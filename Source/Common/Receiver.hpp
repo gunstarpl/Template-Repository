@@ -11,12 +11,13 @@ class DispatcherBase;
 template<typename Type>
 class ReceiverInvoker;
 
-//
-// Receiver
-//  Invokes a function/method after receiving a signal from a dispatcher.
-//  A single receiver instance can be connected to only one dispatcher.
-//  See Dispatcher class for more information.
-//
+/*
+    Receiver Template
+
+    Invokes a delegate after receiving a signal from a dispatcher.
+    Single receiver instance can be connected to only one dispatcher.
+    See Dispatcher template class for more information.
+*/
 
 template<typename Type>
 class Receiver;
@@ -42,7 +43,7 @@ public:
         Cleanup();
     }
 
-    // Restores instance to it's original state.
+    // Restores instance to its original state.
     void Cleanup()
     {
         // Unsubscribe from the dispatcher.
