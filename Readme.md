@@ -4,17 +4,17 @@ Base repository for future C++ projects.
 
 Folder Structure
 ----
-* Build - CMake build files and defines
+* Build - Project's build files
 * Deploy - Application's working directory
-* External - Stores Third-Party libraries
-* Source - Contains source code files
+* Source - Headers and source code files
+* External - Third-Party libraries
 
 How To Build
 ---
 
-1. Run one of the batch files located in Build directory. (Build/CMake-VS2015.bat)
-2. Open the solution file in the generated directory. (Build/CMake-VS2015/Project.sln)
-3. Build and run the application. (press F5 in Visual Studio 2015)
+1. Run one of the batch files located in Build directory. (e.g. Build/CMake-VS2015.bat)
+2. Open the solution file in generated Build directory. (e.g. Build/CMake-VS2015/Project.sln)
+3. Build and run the application. (e.g. press F5 in Visual Studio 2015)
 
 License
 ----
